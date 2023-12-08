@@ -69,16 +69,7 @@ public class ConcreteEdgesGraphTest extends GraphInstanceTest {
 
         assertEquals("expected string", expected, graph.toString());
     }
-    /*
-     * Testing Edge...
-     */
 
-    // Testing strategy for Edge
-    // test getters
-    // test toString
-
-    // TODO tests for operations of Edge
-    // test getters
     @Test
     public void testGet() {
         Edge edge = new Edge(vertex1, vertex2, weight1);
