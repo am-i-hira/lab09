@@ -10,31 +10,16 @@ import java.util.Map;
 
 import org.junit.Test;
 
-/**
- * Tests for ConcreteVerticesGraph.
- * 
- * This class runs the GraphInstanceTest tests against ConcreteVerticesGraph, as
- * well as tests for that particular implementation.
- * 
- * Tests against the Graph spec should be in GraphInstanceTest.
- */
 public class ConcreteVerticesGraphTest extends GraphInstanceTest {
-    
+
     /*
      * Provide a ConcreteVerticesGraph for tests in GraphInstanceTest.
      */
-    @Override public Graph<String> emptyInstance() {
+    @Override
+    public Graph<String> emptyInstance() {
         return new ConcreteVerticesGraph();
     }
-    
-    
-    /*
-     * Testing ConcreteVerticesGraph.toString()...
-     * edge num = 0, 1, n
-     * graph size = 0,1, n
-     */
 
-    // covers empty graph
     @Test
     public void testToStringEmptyGraph() {
         ConcreteVerticesGraph graph = new ConcreteVerticesGraph();
@@ -46,7 +31,8 @@ public class ConcreteVerticesGraphTest extends GraphInstanceTest {
     public void testToStringSingleVertexNoEdges() {
         ConcreteVerticesGraph graph = new ConcreteVerticesGraph();
         graph.add("@Vertex1");
-        assertEquals("toString should return the correct string representation for a single vertex with no edges", "@Vertex1\t->", graph.toString());
+        assertEquals("toString should return the correct string representation for a single vertex with no edges",
+                "@Vertex1\t->", graph.toString());
     }
 
     // covers single vertex, single edge
@@ -55,7 +41,8 @@ public class ConcreteVerticesGraphTest extends GraphInstanceTest {
         ConcreteVerticesGraph graph = new ConcreteVerticesGraph();
         graph.add("@Vertex1");
         graph.set("@Vertex1", "@Vertex2", 5);
-        assertEquals("toString should return the correct string representation for a single vertex with a single edge", "@Vertex1\t->@Vertex2, @Vertex2\t->", graph.toString());
+        assertEquals("toString should return the correct string representation for a single vertex with a single edge",
+                "@Vertex1\t->@Vertex2, @Vertex2\t->", graph.toString());
     }
 
     // covers multiple vertices, multiple edges
@@ -68,18 +55,17 @@ public class ConcreteVerticesGraphTest extends GraphInstanceTest {
         graph.set("@Vertex1", "@Vertex2", 5);
         graph.set("@Vertex1", "@Vertex3", 10);
         graph.set("@Vertex2", "@Vertex3", 8);
-        assertEquals("toString should return the correct string representation for multiple vertices and multiple edges", "@Vertex1\t->@Vertex2, @Vertex3, @Vertex2\t->@Vertex3, @Vertex3\t->", graph.toString());
+        assertEquals(
+                "toString should return the correct string representation for multiple vertices and multiple edges",
+                "@Vertex1\t->@Vertex2, @Vertex3, @Vertex2\t->@Vertex3, @Vertex3\t->", graph.toString());
     }
 
-       
-    
-    
     /*
      * Testing Vertex...
      */
 
     // Testing strategy for Vertex constructor
-    //   label: valid, invalid
+    // label: valid, invalid
     // TODO tests for Vertex constructor
 
     // covers label: valid
@@ -96,10 +82,10 @@ public class ConcreteVerticesGraphTest extends GraphInstanceTest {
         new Vertex("InvalidLabel");
     }
 
-
     // Testing strategy for Vertex.connect()
-    //   connecting to a new vertex, connecting to an existing vertex with a new weight,
-    //   connecting with a negative weight
+    // connecting to a new vertex, connecting to an existing vertex with a new
+    // weight,
+    // connecting with a negative weight
     // TODO tests for Vertex.connect()
 
     // covers connecting to a new vertex
@@ -128,11 +114,6 @@ public class ConcreteVerticesGraphTest extends GraphInstanceTest {
         v.connect("@Vertex2", -5);
     }
 
-
-    // Testing strategy for Vertex.disconnect()
-    //   disconnecting from an existing vertex, disconnecting from a non-existing vertex
-    // TODO tests for Vertex.disconnect()
-
     // covers disconnecting from an existing vertex
     @Test
     public void testDisconnectExistingVertex() {
@@ -149,9 +130,8 @@ public class ConcreteVerticesGraphTest extends GraphInstanceTest {
         assertFalse("Disconnecting from a non-existing vertex should return false", v.disconnect("@Vertex2"));
     }
 
-
     // Testing strategy for Vertex.getLabel()
-    //   vertex with a valid label
+    // vertex with a valid label
     // TODO tests for Vertex.getLabel()
 
     // covers vertex with a valid label
@@ -161,9 +141,8 @@ public class ConcreteVerticesGraphTest extends GraphInstanceTest {
         assertEquals("getLabel should return the correct label", "@Vertex1", v.getLabel());
     }
 
-
     // Testing strategy for Vertex.getMaps()
-    //   maps with existing connections, maps without connections
+    // maps with existing connections, maps without connections
     // TODO tests for Vertex.getMaps()
 
     // covers maps with existing connections
@@ -185,9 +164,9 @@ public class ConcreteVerticesGraphTest extends GraphInstanceTest {
         assertTrue("getMaps should return an empty map when there are no connections", v.getMaps().isEmpty());
     }
 
-
     // Testing strategy for Vertex.getWeightOfConnection()
-    //   getting weight of an existing connection, getting weight of a non-existing connection
+    // getting weight of an existing connection, getting weight of a non-existing
+    // connection
     // TODO tests for Vertex.getWeightOfConnection()
 
     // covers getting weight of an existing connection
@@ -195,7 +174,8 @@ public class ConcreteVerticesGraphTest extends GraphInstanceTest {
     public void testGetWeightOfExistingConnection() {
         Vertex v = new Vertex("@Vertex1");
         v.connect("@Vertex2", 5);
-        assertEquals("getWeightOfConnection should return the correct weight", 5, v.getWeightOfConnection("@Vertex2").intValue());
+        assertEquals("getWeightOfConnection should return the correct weight", 5,
+                v.getWeightOfConnection("@Vertex2").intValue());
     }
 
     // covers getting weight of a non-existing connection
@@ -205,9 +185,8 @@ public class ConcreteVerticesGraphTest extends GraphInstanceTest {
         v.getWeightOfConnection("@Vertex2");
     }
 
-
     // Testing strategy for Vertex.toString()
-    //   toString with connections, toString without connections
+    // toString with connections, toString without connections
     // TODO tests for Vertex.toString()
 
     // covers toString with connections
@@ -217,7 +196,8 @@ public class ConcreteVerticesGraphTest extends GraphInstanceTest {
         v.connect("@Vertex2", 5);
         v.connect("@Vertex3", 10);
         String expected = "@Vertex1\t->@Vertex2, @Vertex3, ";
-        assertEquals("toString should return the correct string representation with connections", expected, v.toString());
+        assertEquals("toString should return the correct string representation with connections", expected,
+                v.toString());
     }
 
     // covers toString without connections
@@ -225,7 +205,8 @@ public class ConcreteVerticesGraphTest extends GraphInstanceTest {
     public void testToStringWithoutConnections() {
         Vertex v = new Vertex("@Vertex1");
         String expected = "@Vertex1\t->";
-        assertEquals("toString should return the correct string representation with no connections", expected, v.toString());
+        assertEquals("toString should return the correct string representation with no connections", expected,
+                v.toString());
     }
 
 }
